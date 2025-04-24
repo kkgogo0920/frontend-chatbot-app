@@ -1,0 +1,45 @@
+.side-menu-container {
+  margin-top: 30px;
+  height: 100%;
+  background-color: #f5f5f5;
+  width: 100%;
+}
+
+.side-menu {
+  width: 200px;
+  height: 100%;
+  border-right: 1px solid var(--color-border);
+  background-color: var(--color-bg-2);
+}
+
+.side-menu .arco-menu {
+  width: 100%;
+}
+
+.side-menu .arco-menu-inner {
+  padding: 0 !important;
+}
+
+.side-menu .arco-menu-item {
+  margin: 4px 8px;
+  border-radius: 4px;
+}
+
+.side-menu .arco-menu-selected {
+  background-color: #2468f2 !important;
+  color: white !important;
+  font-weight: 500 !important;
+}
+
+.side-menu .arco-menu-item:not(.arco-menu-selected):hover {
+  background-color: rgba(36, 104, 242, 0.1) !important;
+  color: #2468f2 !important;
+}
+
+.side-menu .menu-icon {
+  margin-right: 8px;
+}
+
+.side-menu .arco-menu-selected .menu-icon {
+  color: white !important;
+}

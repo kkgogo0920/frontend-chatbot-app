@@ -1,0 +1,246 @@
+.document-summary-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.document-summary-container .arco-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.document-summary-container .arco-card-header {
+  border-bottom: 1px solid #f2f3f5;
+}
+
+.summary-results {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #f2f3f5;
+}
+
+.file-upload-zone {
+  border: 2px dashed #e5e6eb;
+  border-radius: 6px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.file-upload-zone:hover {
+  border-color: rgb(var(--primary-6));
+  background-color: rgb(var(--primary-1));
+}
+
+.file-upload-zone.dragging {
+  border-color: rgb(var(--primary-6));
+  background-color: rgb(var(--primary-1));
+}
+
+.upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.upload-icon {
+  font-size: 28px;
+  color: rgb(var(--primary-6));
+}
+
+.upload-text {
+  text-align: center;
+}
+
+.upload-hint {
+  color: rgb(var(--gray-6));
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.summary-options {
+  margin: 24px 0;
+}
+
+.option-description {
+  font-size: 12px;
+  color: rgb(var(--gray-6));
+  margin-top: 4px;
+}
+
+.summary-content {
+  background: rgb(var(--gray-1));
+  padding: 16px;
+  border-radius: 4px;
+  margin-top: 16px;
+}
+
+.key-points {
+  margin-top: 24px;
+}
+
+.key-points ul {
+  padding-left: 20px;
+  margin: 12px 0;
+  list-style-type: disc;
+}
+
+.key-points li {
+  margin-bottom: 8px;
+}
+
+.error-message {
+  color: rgb(var(--danger-6));
+  padding: 16px;
+  background: rgb(var(--danger-1));
+  border-radius: 4px;
+  margin-top: 16px;
+}
+
+/* Loading state styles */
+.arco-spin {
+  display: block;
+}
+
+.arco-spin-loading {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.dropzone {
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dropzone.active {
+  border-color: #165dff;
+  background-color: rgba(22, 93, 255, 0.05);
+}
+
+.file-info {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+}
+
+.file-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.key-points-list {
+  margin-top: 8px;
+}
+
+.key-points-list .arco-list-item {
+  padding: 8px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dropzone {
+    padding: 16px;
+  }
+  
+  .file-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.document-summary {
+  padding: 24px;
+  background-color: var(--color-bg-2);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.document-summary .arco-card {
+  margin-bottom: 24px;
+}
+
+.document-summary .upload-section {
+  margin-bottom: 16px;
+}
+
+.document-summary .text-input-section {
+  margin-bottom: 16px;
+}
+
+.document-summary .controls-section {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.document-summary .loading-section {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.document-summary .loading-text {
+  margin-top: 8px;
+  color: var(--color-text-3);
+}
+
+.document-summary .summary-result {
+  margin-top: 24px;
+}
+
+.document-summary .arco-textarea-wrapper {
+  margin-bottom: 16px;
+}
+
+.document-summary .arco-btn {
+  padding: 0 32px;
+}
+
+.document-summary .arco-typography-secondary {
+  color: var(--color-text-3);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .document-summary {
+    padding: 16px;
+  }
+  
+  .document-summary .arco-card {
+    margin-bottom: 16px;
+  }
+  
+  .document-summary .controls-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .document-summary .arco-select {
+    margin-bottom: 16px;
+    width: 100% !important;
+  }
+  
+  .document-summary .arco-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .document-summary {
+    padding: 12px;
+  }
+  
+  .document-summary .arco-btn {
+    padding: 0 24px;
+  }
+} 

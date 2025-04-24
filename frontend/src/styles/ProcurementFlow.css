@@ -1,0 +1,40 @@
+.procurement-flow {
+  padding: 24px;
+  background-color: #fff;
+}
+
+.procurement-flow h2 {
+  margin-bottom: 24px;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-text-1);
+}
+
+.procurement-steps {
+  margin-bottom: 40px;
+}
+
+.procurement-steps .arco-steps-item-title {
+  font-weight: 500;
+}
+
+.procurement-steps .arco-steps-item-description {
+  color: var(--color-text-3);
+}
+
+.inventory-table {
+  margin-bottom: 24px;
+}
+
+.inventory-table .arco-table-th {
+  background-color: var(--color-fill-2);
+  font-weight: 500;
+}
+
+.status-warning {
+  color: rgb(var(--danger-6));
+}
+
+.analyze-button {
+  min-width: 120px;
+} 

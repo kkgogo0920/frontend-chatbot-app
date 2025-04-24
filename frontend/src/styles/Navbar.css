@@ -1,0 +1,65 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.company-logo {
+  height: 40px;
+  width: auto;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+}
+
+.search-container {
+  width: 300px;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #f53f3f;
+  color: white;
+  border-radius: 10px;
+  padding: 2px 6px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .search-container {
+    width: 200px;
+  }
+  
+  .company-logo {
+    height: 32px;
+  }
+}
+
+@media (max-width: 576px) {
+  .search-container {
+    width: 150px;
+  }
+  
+  .navbar {
+    padding: 0 10px;
+  }
+}

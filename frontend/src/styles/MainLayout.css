@@ -1,0 +1,9 @@
+.layout {
+  height: 100vh;
+}
+
+.content {
+  padding: 0;
+  background-color: var(--color-fill-2);
+  overflow: auto;
+} 

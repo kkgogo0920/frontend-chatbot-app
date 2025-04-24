@@ -1,0 +1,44 @@
+.register-container {
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 60px);
+  background-color: var(--color-fill-2);
+}
+
+.register-container h2 {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.register-container .arco-form {
+  background-color: var(--color-bg-2);
+  padding: 24px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.register-container .arco-form-item {
+  margin-bottom: 24px;
+}
+
+.register-container .arco-radio-group {
+  display: flex;
+  gap: 32px;
+}
+
+.register-container .arco-form-item-label {
+  font-weight: 500;
+}
+
+.register-container .arco-space {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.register-container .arco-btn {
+  padding: 0 32px;
+} 
