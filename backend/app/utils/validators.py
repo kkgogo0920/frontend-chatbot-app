@@ -10,6 +10,11 @@ def validate_email(email):
     email_pattern = re.compile(r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$')
     return bool(email_pattern.match(email))
 
+def validate_file_extension(filename, allowed_extensions):
+    """验证文件扩展名"""
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in allowed_extensions
+
 def validate_password(password):
     """验证密码强度"""
     if len(password) < 8:

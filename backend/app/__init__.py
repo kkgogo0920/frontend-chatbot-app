@@ -1,40 +1,36 @@
 from flask import Flask
 from flask_cors import CORS
-from pymongo import MongoClient
-from .config.config import Config
-import os
-from dotenv import load_dotenv
+import i18n
 
-# 加载环境变量
-load_dotenv()
+from app.core.config import settings
+from app.core.database import db
+from app.api.routes import api
 
-def create_app(config_class=Config):
+def create_app():
+    """应用工厂函数"""
+    # 创建Flask应用
     app = Flask(__name__)
     
-    # 简化的CORS配置，允许所有本地开发请求
+    # 配置应用
+    app.config['JWT_SECRET_KEY'] = settings.JWT_SECRET_KEY
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = settings.JWT_ACCESS_TOKEN_EXPIRES
+    app.config['UPLOAD_FOLDER'] = settings.UPLOAD_FOLDER
+    app.config['MAX_CONTENT_LENGTH'] = settings.MAX_CONTENT_LENGTH
+    
+    # 添加CORS支持
     CORS(app, supports_credentials=True)
     
-    # 加载配置
-    app.config.from_object(config_class)
-    app.config['JSON_AS_ASCII'] = False
-    
-    # 确保JWT密钥已设置
-    if not app.config.get('JWT_SECRET_KEY'):
-        app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'jwt_restaurant_app_secret_key_2024')
-    
-    # 初始化MongoDB
-    client = MongoClient(app.config['MONGO_URI'])
-    app.db = client[app.config['DB_NAME']]
+    # 配置i18n
+    i18n.load_path.append(settings.I18N_PATH)
+    i18n.set('filename_format', settings.I18N_FILENAME_FORMAT)
+    i18n.set('skip_locale_root_data', True)
+    i18n.set('fallback', settings.I18N_FALLBACK)
     
     # 注册蓝图
-    from .routes.auth import auth_bp
-    from .routes.user import user_bp
-    from .routes.admin import admin_bp
-    from .routes.document import document_bp
+    app.register_blueprint(api, url_prefix='/api')
     
-    app.register_blueprint(auth_bp, url_prefix='/api')
-    app.register_blueprint(user_bp, url_prefix='/api')
-    app.register_blueprint(admin_bp, url_prefix='/api')
-    app.register_blueprint(document_bp, url_prefix='/api')
+    # 初始化数据库
+    db.connect()
+    db.setup_indexes()
     
     return app
