@@ -2,7 +2,7 @@ import React from 'react';
 import { Empty, Button } from '@arco-design/web-react';
 import { IconPlus } from '@arco-design/web-react/icon';
 
-const EmptyState = ({ 
+const EmptyInfo = ({ 
   description = 'No data available', 
   actionText,
   onAction,
@@ -61,4 +61,4 @@ const EmptyState = ({
   );
 };
 
-export default EmptyState; 
+export default EmptyInfo; 

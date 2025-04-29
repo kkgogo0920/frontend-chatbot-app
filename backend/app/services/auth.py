@@ -8,13 +8,25 @@ from app.models.user import User
 
 def generate_token(user):
     """生成JWT令牌"""
-    payload = {
-        'user_id': str(user._id) if hasattr(user, '_id') else None,
-        'email': user.email,
-        'phone': user.phone,
-        'user_type': user.user_type,
-        'exp': datetime.utcnow() + settings.JWT_ACCESS_TOKEN_EXPIRES
-    }
+    # 处理测试账号
+    if isinstance(user, dict):
+        payload = {
+            'user_id': user.get('_id'),
+            'username': user.get('username'),
+            'email': user.get('email'),
+            'phone': user.get('phone'),
+            'user_type': user.get('user_type'),
+            'exp': datetime.utcnow() + settings.JWT_ACCESS_TOKEN_EXPIRES
+        }
+    else:
+        # 处理普通用户对象
+        payload = {
+            'user_id': str(user._id) if hasattr(user, '_id') else None,
+            'email': user.email,
+            'phone': user.phone,
+            'user_type': user.user_type,
+            'exp': datetime.utcnow() + settings.JWT_ACCESS_TOKEN_EXPIRES
+        }
     
     return jwt.encode(
         payload,

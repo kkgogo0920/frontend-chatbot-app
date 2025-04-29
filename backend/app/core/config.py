@@ -1,5 +1,5 @@
 import os
-from datetime import timedelta
+from datetime import timedelta, datetime
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -36,10 +36,13 @@ class Settings:
     # Test account settings
     TEST_ACCOUNTS = {
         'kevinke0920': {
+            '_id': 'test_admin_id',
             'username': 'kevinke0920',
             'password': 'Fuzhou12345',
             'email': 'kevinke0920@system.com',
-            'user_type': 'admin'
+            'phone': None,
+            'user_type': 'admin',
+            'created_at': datetime.utcnow()
         }
     }
 

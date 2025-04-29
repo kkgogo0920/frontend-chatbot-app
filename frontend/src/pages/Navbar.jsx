@@ -17,9 +17,7 @@ const Navbar = ({ collapsed, onCollapse }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [userType, setUserType] = useState('customer');
   const [currentUser, setCurrentUser] = useState(null);
-  const [loginType, setLoginType] = useState('email');
   const navigate = useNavigate();
-  const isAuthenticated = !!localStorage.getItem('token');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -27,17 +25,6 @@ const Navbar = ({ collapsed, onCollapse }) => {
       setCurrentUser({ token });
     }
   }, []);
-
-  const handleSearch = (value) => {
-    if (onSearch && typeof onSearch === 'function') {
-      onSearch(value);
-    }
-  };
-
-  const handleLoginTypeChange = (value) => {
-    setLoginType(value);
-    form.clearFields(['email', 'phone']); // Clear email and phone fields
-  };
 
   const handleModalOk = async () => {
     try {
@@ -91,13 +78,6 @@ const Navbar = ({ collapsed, onCollapse }) => {
     setCurrentUser(null);
     Message.success('Logged out successfully');
     navigate('/');
-  };
-
-  // Validate US phone number
-  const validateUSPhone = (value) => {
-    const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-    if (!value) return false;
-    return phoneRegex.test(value);
   };
 
   // Validate email

@@ -1,20 +1,24 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
-import Home from '../components/Home';
+import Home from '../pages/Home';
+import DocumentSummary from '../components/DocumentSummary';
+import ProcurementFlow from '../pages/ProcurementFlow';
+import Reviews from '../components/ProductReviewFeed';
 import Login from '../components/Login';
 import Register from '../components/Register';
-import Profile from '../components/Profile';
-import DocumentSummarizer from '../components/DocumentSummarizer';
-import PrivateRoute from '../components/PrivateRoute';
+
 
 // 需要布局的路由
 const LayoutRoutes = () => (
   <MainLayout>
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-      <Route path="/summarize" element={<PrivateRoute><DocumentSummarizer /></PrivateRoute>} />
+      {/* Redirect root path to /home */}
+      <Route path="/" element={<Navigate to="/home" replace />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/documents" element={<DocumentSummary />} />
+      <Route path="/reviews" element={<Reviews />} />
+      <Route path="/inventory" element={<ProcurementFlow />} />
     </Routes>
   </MainLayout>
 );
@@ -33,4 +37,4 @@ const AppRoutes = () => {
   return isAuthPage ? <AuthRoutes /> : <LayoutRoutes />;
 };
 
-export default AppRoutes; 
+export default AppRoutes;

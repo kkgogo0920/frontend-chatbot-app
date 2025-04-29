@@ -2,6 +2,12 @@
   "dependencies": {
     "openai": "^4.28.0",
     "pdfjs-dist": "^4.0.379",
-    "react-dropzone": "^14.2.3"
+    "react-dropzone": "^14.2.3",
+    "styled-components": "^6.1.17"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.4"
   }
-} 
+}

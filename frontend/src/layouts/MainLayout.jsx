@@ -1,39 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout } from '@arco-design/web-react';
-import Navbar from '../components/Navbar.jsx';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Navbar from '../pages/Navbar.jsx';
 import SideMenu from '../components/SideMenu.jsx';
-import DocumentSummary from '../components/DocumentSummary.jsx';
-import Home from '../pages/Home';
-import ProcurementFlow from '../pages/ProcurementFlow';
-import { IconMenu } from '@arco-design/web-react/icon';
+import Reviews from '../components/ProductReviewFeed.jsx';
 import '../styles/MainLayout.css';
 
 const { Sider, Content } = Layout;
 
 // MainLayout 负责整体布局和左侧菜单内容切换
 const MainLayout = ({ children }) => {
-  // 当前选中的菜单项
-  const [selectedMenu, setSelectedMenu] = useState('apps');
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  // Extract the current path without leading slash
+  const currentPath = location.pathname.substring(1) || 'home';
+  
+  // 当前选中的菜单项 - based on current URL path
+  const [selectedMenu, setSelectedMenu] = useState(currentPath);
   // 侧边栏是否收起
   const [collapsed, setCollapsed] = useState(false); // 默认展开
+
+  // Update selectedMenu when URL changes
+  useEffect(() => {
+    const path = location.pathname.substring(1) || 'home';
+    setSelectedMenu(path);
+  }, [location]);
 
   // 菜单选择回调
   const handleMenuSelect = (key) => {
     setSelectedMenu(key);
-  };
-
-  // 根据菜单选择渲染不同页面内容
-  const renderContent = () => {
-    switch (selectedMenu) {
-      case 'documents':
-        return <DocumentSummary />;
-      case 'apps':
-        return <Home />;
-      case 'procurement-flow':
-        return <ProcurementFlow />;
-      default:
-        return <Home />;
-    }
+    navigate(`/${key}`);
   };
 
   return (
@@ -52,11 +49,11 @@ const MainLayout = ({ children }) => {
         <Navbar collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)} />
         {/* 主内容区 */}
         <Content className="main-content" style={{ padding: 32, background: '#f6f8fa' }}>
-          {renderContent()}
+          {children}
         </Content>
       </Layout>
     </Layout>
   );
 };
 
-export default MainLayout; 
+export default MainLayout;

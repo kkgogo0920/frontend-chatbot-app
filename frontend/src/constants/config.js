@@ -18,14 +18,11 @@ export const LOGIN_TYPES = {
 
 // 路由配置
 export const ROUTES = {
-    HOME: '/',
+    ROOT: '/home',  // Updated from '/' to '/home'
+    HOME: '/home',  // Added explicit home route
     LOGIN: '/login',
     REGISTER: '/register',
     PROFILE: '/profile',
-    APPS: '/apps',
     DOCUMENTS: '/documents',
-    ADMIN: {
-        USERS: '/admin/users',
-        USER_MANAGEMENT: '/admin/user-management'
-    }
-}; 
+    INVENTORY: '/inventory'
+};
