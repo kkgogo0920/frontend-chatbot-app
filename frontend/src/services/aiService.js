@@ -5,11 +5,11 @@ export const summarizeDocument = async (data) => {
   try {
     const token = localStorage.getItem('token');
     if (!token) {
-      throw new Error('未登录，请先登录');
+      throw new Error('Not logged in, please log in first.');
     }
 
     if (data.file) {
-      // 处理文件上传
+      // Handle file upload
       const formData = new FormData();
       formData.append('file', data.file);
       if (data.length) {
@@ -24,12 +24,12 @@ export const summarizeDocument = async (data) => {
       });
       
       if (!response.data || response.data.error) {
-        throw new Error(response.data?.error || '摘要生成失败');
+        throw new Error(response.data?.error || 'Failed to generate summary.');
       }
       
       return response.data;
     } else if (data.text) {
-      // 处理文本输入
+      // Handle text input
       const response = await axios.post(`${API_URL}/ai/summarize`, {
         text: data.text,
         length: data.length || 'medium'
@@ -41,12 +41,12 @@ export const summarizeDocument = async (data) => {
       });
       
       if (!response.data || response.data.error) {
-        throw new Error(response.data?.error || '摘要生成失败');
+        throw new Error(response.data?.error || 'Failed to generate summary.');
       }
       
       return response.data;
     } else {
-      throw new Error('请提供文本或文件');
+      throw new Error('Please provide text or file.');
     }
   } catch (error) {
     console.error('AI Service Error:', error);
@@ -55,7 +55,7 @@ export const summarizeDocument = async (data) => {
     } else if (error.message) {
       throw new Error(error.message);
     } else {
-      throw new Error('摘要生成失败，请稍后重试');
+      throw new Error('Failed to generate summary, please try again later.');
     }
   }
 };

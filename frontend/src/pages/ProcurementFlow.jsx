@@ -7,22 +7,22 @@ const Step = Steps.Step;
 const ProcurementFlow = () => {
   const columns = [
     {
-      title: '物品名称',
+      title: 'Item Name',
       dataIndex: 'name',
     },
     {
-      title: '当前库存',
+      title: 'Current Stock',
       dataIndex: 'currentStock',
     },
     {
-      title: '阈值',
+      title: 'Threshold',
       dataIndex: 'threshold',
     },
     {
-      title: '状态',
+      title: 'Status',
       dataIndex: 'status',
       render: (status) => (
-        <span className={status === '需要补货' ? 'status-warning' : ''}>
+        <span className={status === 'Restock Needed' ? 'status-warning' : ''}>
           {status}
         </span>
       ),
@@ -32,40 +32,40 @@ const ProcurementFlow = () => {
   const data = [
     {
       key: '1',
-      name: '米饭',
+      name: 'Rice',
       currentStock: 50,
       threshold: 100,
-      status: '需要补货',
+      status: 'Restock Needed',
     },
     {
       key: '2',
-      name: '蔬菜',
+      name: 'Vegetables',
       currentStock: 30,
       threshold: 80,
-      status: '需要补货',
+      status: 'Restock Needed',
     },
   ];
 
   return (
     <div className="procurement-flow">
-      <h2>中餐馆进货 Agent</h2>
+      <h2>Chinese Restaurant Procurement Agent</h2>
       
       <Steps current={0} className="procurement-steps">
         <Step 
-          title="数据分析" 
-          description="库存和销售数据"
+          title="Data Analysis" 
+          description="Inventory and Sales Data"
         />
         <Step 
-          title="采购决策" 
-          description="是否需要进货"
+          title="Procurement Decision" 
+          description="Restock Decision"
         />
         <Step 
-          title="供应商选择" 
-          description="AI辅助决策"
+          title="Supplier Selection" 
+          description="AI Assisted Decision"
         />
         <Step 
-          title="完成" 
-          description="自动下单"
+          title="Complete" 
+          description="Auto Order"
         />
       </Steps>
 
@@ -82,7 +82,7 @@ const ProcurementFlow = () => {
       </div>
 
       <Button type="primary" className="analyze-button">
-        分析库存状况
+        Analyze Inventory Status
       </Button>
     </div>
   );

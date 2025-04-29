@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Input, Space, Button, Dropdown, Menu, Modal, Form, Input as ArcoInput, Message, Radio } from '@arco-design/web-react';
-import { IconSearch, IconNotification, IconUser }from '@arco-design/web-react/icon';
+import { Layout, Input, Space, Button, Dropdown, Menu, Modal, Form, Input as ArcoInput, Message, Radio, Avatar, Card } from '@arco-design/web-react';
+import { IconSearch, IconNotification, IconUser, IconMenu } from '@arco-design/web-react/icon';
 import AuthService from '../services/auth';
 import companyLogo from '../assets/company-logo.png';
 import '../styles/Navbar.css';
@@ -11,7 +11,7 @@ const { Header } = Layout;
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
-const Navbar = () => {
+const Navbar = ({ collapsed, onCollapse }) => {
   const [form] = Form.useForm();
   const [visible, setVisible] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
@@ -51,11 +51,11 @@ const Navbar = () => {
             username: data.username,
             user_type: data.user_type
           });
-          Message.success('登录成功');
+          Message.success('Login successful');
           setVisible(false);
           form.resetFields();
         } catch (error) {
-          Message.error(error.message || '登录失败');
+          Message.error(error.message || 'Login failed');
         }
       } else {
         // Handle registration
@@ -68,7 +68,7 @@ const Navbar = () => {
           await AuthService.register(userData);
           const user = AuthService.getCurrentUser();
           setCurrentUser(user);
-          Message.success('注册成功');
+          Message.success('Registration successful');
           setVisible(false);
           form.resetFields();
         } catch (error) {
@@ -77,7 +77,7 @@ const Navbar = () => {
       }
     } catch (error) {
       console.error('Form validation error:', error);
-      Message.error('请检查输入信息是否完整');
+      Message.error('Please check if all input information is complete');
     }
   };
 
@@ -89,7 +89,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     setCurrentUser(null);
-    Message.success('已退出登录');
+    Message.success('Logged out successfully');
     navigate('/');
   };
 
@@ -109,47 +109,59 @@ const Navbar = () => {
 
   const dropList = currentUser ? (
     <Menu>
-      <Menu.Item key="profile" onClick={() => navigate('/profile')}>个人信息</Menu.Item>
-      <Menu.Item key="summarize" onClick={() => navigate('/summarize')}>文档摘要</Menu.Item>
-      <Menu.Item key="logout" onClick={handleLogout}>退出登录</Menu.Item>
+      <Menu.Item key="profile" onClick={() => navigate('/profile')}>Personal Information</Menu.Item>
+      <Menu.Item key="summarize" onClick={() => navigate('/summarize')}>Document Summary</Menu.Item>
+      <Menu.Item key="logout" onClick={handleLogout}>Logout</Menu.Item>
     </Menu>
   ) : (
     <Menu>
-      <Menu.Item key="login" onClick={() => { setIsLogin(true); setVisible(true); }}>登录</Menu.Item>
-      <Menu.Item key="register" onClick={() => { setIsLogin(false); setVisible(true); }}>注册</Menu.Item>
+      <Menu.Item key="login" onClick={() => { setIsLogin(true); setVisible(true); }}>Login</Menu.Item>
+      <Menu.Item key="register" onClick={() => { setIsLogin(false); setVisible(true); }}>Register</Menu.Item>
     </Menu>
   );
 
   return (
-    <>
-      <Header className="navbar">
-        <div className="logo" onClick={() => navigate('/')}>
-          <img src={companyLogo} alt="公司logo" className="company-logo" />
+    <Header style={{ background: 'transparent', padding: 0, marginBottom: 24 }}>
+      <Card
+        style={{
+          boxShadow: '0 2px 12px 0 rgba(36,104,242,0.06)',
+          background: '#fff',
+          padding: '0 32px',
+          height: 64,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+        bordered={false}
+        bodyStyle={{ padding: 0, height: 64, display: 'flex', alignItems: 'center', width: '100%' }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <Button
+            icon={<IconMenu />}
+            shape="circle"
+            size="large"
+            style={{ background: 'none', border: 'none' }}
+            onClick={onCollapse}
+          />
+          <img src={companyLogo} alt="logo" style={{ height: 36 }} />
         </div>
-        <div className="nav-controls">
-          <Space size="large">
-            <div className="search-container">
-              <Input
-                placeholder="搜索库存/供应商..."
-                prefix={<IconSearch />}
-                onChange={handleSearch}
-                allowClear
-              />
-            </div>
-            <Button type="text" icon={<IconNotification />}>
-              <span className="notification-badge">2</span>
-            </Button>
-            <Dropdown droplist={dropList} position="br">
-              <Button type="text" icon={<IconUser />}>
-                {currentUser ? currentUser.email : '用户'}
-              </Button>
-            </Dropdown>
-          </Space>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+          <Input
+            style={{ width: 320, borderRadius: 24, background: '#f6f8fa' }}
+            prefix={<IconSearch />}
+            placeholder="Search inventory/supplier..."
+            allowClear
+          />
         </div>
-      </Header>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <Dropdown droplist={dropList} position="br">
+            <Avatar style={{ background: '#2468f2', cursor: 'pointer' }} icon={<IconUser />} />
+          </Dropdown>
+        </div>
+      </Card>
 
       <Modal
-        title={isLogin ? "用户登录" : "用户注册"}
+        title={isLogin ? "User Login" : "User Registration"}
         visible={visible}
         onOk={handleModalOk}
         onCancel={handleModalCancel}
@@ -162,50 +174,50 @@ const Navbar = () => {
           style={{ width: '100%' }}
         >
           {!isLogin && (
-            <FormItem label="用户类型" field="user_type" initialValue={userType}>
+            <FormItem label="User Type" field="user_type" initialValue={userType}>
               <RadioGroup onChange={setUserType} value={userType}>
-                <Radio value="customer">餐厅客户</Radio>
-                <Radio value="supplier">供应商</Radio>
+                <Radio value="customer">Restaurant Customer</Radio>
+                <Radio value="supplier">Supplier</Radio>
               </RadioGroup>
             </FormItem>
           )}
 
           {isLogin ? (
             <FormItem
-              label="用户名"
+              label="Username"
               field="username"
-              rules={[{ required: true, message: '请输入用户名' }]}
+              rules={[{ required: true, message: 'Please enter your username' }]}
             >
-              <ArcoInput placeholder="请输入用户名" />
+              <ArcoInput placeholder="Please enter your username" />
             </FormItem>
           ) : (
             <>
               <FormItem
-                label="用户名"
+                label="Username"
                 field="username"
                 rules={[
-                  { required: true, message: '请输入用户名' },
-                  { minLength: 3, message: '用户名长度至少为3位' }
+                  { required: true, message: 'Please enter your username' },
+                  { minLength: 3, message: 'Username must be at least 3 characters' }
                 ]}
               >
-                <ArcoInput placeholder="请输入用户名" />
+                <ArcoInput placeholder="Please enter your username" />
               </FormItem>
               <FormItem
-                label="邮箱"
+                label="Email"
                 field="email"
                 rules={[
-                  { required: true, message: '请输入邮箱' },
+                  { required: true, message: 'Please enter your email' },
                   {
                     validator: (value, callback) => {
                       if (!validateEmail(value)) {
-                        callback('请输入有效的邮箱地址');
+                        callback('Please enter a valid email address');
                       }
                       callback();
                     }
                   }
                 ]}
               >
-                <ArcoInput placeholder="请输入邮箱" />
+                <ArcoInput placeholder="Please enter your email" />
               </FormItem>
             </>
           )}
@@ -213,18 +225,18 @@ const Navbar = () => {
           {!isLogin && userType === 'supplier' && (
             <>
               <FormItem
-                label="公司名称"
+                label="Company Name"
                 field="company_name"
-                rules={[{ required: true, message: '请输入公司名称' }]}
+                rules={[{ required: true, message: 'Please enter your company name' }]}
               >
-                <ArcoInput placeholder="请输入公司名称" />
+                <ArcoInput placeholder="Please enter your company name" />
               </FormItem>
               <FormItem
-                label="供应品类"
+                label="Supply Categories"
                 field="supply_categories"
-                rules={[{ required: true, message: '请输入供应品类' }]}
+                rules={[{ required: true, message: 'Please enter supply categories' }]}
               >
-                <ArcoInput placeholder="请输入供应品类，多个品类用逗号分隔" />
+                <ArcoInput placeholder="Please enter supply categories, separated by commas" />
               </FormItem>
             </>
           )}
@@ -232,63 +244,63 @@ const Navbar = () => {
           {!isLogin && userType === 'customer' && (
             <>
               <FormItem
-                label="餐厅名称"
+                label="Restaurant Name"
                 field="restaurant_name"
-                rules={[{ required: true, message: '请输入餐厅名称' }]}
+                rules={[{ required: true, message: 'Please enter your restaurant name' }]}
               >
-                <ArcoInput placeholder="请输入餐厅名称" />
+                <ArcoInput placeholder="Please enter your restaurant name" />
               </FormItem>
               <FormItem
-                label="餐厅地址"
+                label="Restaurant Address"
                 field="restaurant_address"
-                rules={[{ required: true, message: '请输入餐厅地址' }]}
+                rules={[{ required: true, message: 'Please enter your restaurant address' }]}
               >
-                <ArcoInput placeholder="请输入餐厅地址" />
+                <ArcoInput placeholder="Please enter your restaurant address" />
               </FormItem>
             </>
           )}
 
           <FormItem
-            label="密码"
+            label="Password"
             field="password"
             rules={[
-              { required: true, message: '请输入密码' },
-              { minLength: 8, message: '密码长度至少为8位' },
+              { required: true, message: 'Please enter your password' },
+              { minLength: 8, message: 'Password must be at least 8 characters' },
               {
                 validator: (value, callback) => {
                   if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(value)) {
-                    callback('密码必须包含大小写字母和数字');
+                    callback('Password must contain uppercase, lowercase letters, and numbers');
                   }
                   callback();
                 }
               }
             ]}
           >
-            <ArcoInput.Password placeholder="请输入密码" />
+            <ArcoInput.Password placeholder="Please enter your password" />
           </FormItem>
 
           {!isLogin && (
             <FormItem
-              label="确认密码"
+              label="Confirm Password"
               field="confirmPassword"
               rules={[
-                { required: true, message: '请确认密码' },
+                { required: true, message: 'Please confirm your password' },
                 {
                   validator: (value, callback) => {
                     if (value !== form.getFieldValue('password')) {
-                      callback('两次输入的密码不一致');
+                      callback('The two passwords entered do not match');
                     }
                     callback();
                   },
                 },
               ]}
             >
-              <ArcoInput.Password placeholder="请再次输入密码" />
+              <ArcoInput.Password placeholder="Please enter your password again" />
             </FormItem>
           )}
         </Form>
       </Modal>
-    </>
+    </Header>
   );
 };
 

@@ -1,8 +1,9 @@
 .side-menu-container {
-  margin-top: 30px;
+  margin-top: 0;
   height: 100%;
-  background-color: #f5f5f5;
+  background: transparent;
   width: 100%;
+  padding: 0;
 }
 
 .side-menu {
@@ -20,26 +21,27 @@
   padding: 0 !important;
 }
 
-.side-menu .arco-menu-item {
-  margin: 4px 8px;
-  border-radius: 4px;
+.arco-menu-item {
+  color: #222 !important;
+  background: transparent !important;
+  transition: background 0.2s, color 0.2s;
 }
 
-.side-menu .arco-menu-selected {
+.arco-menu-selected {
   background-color: #2468f2 !important;
-  color: white !important;
+  color: #fff !important;
   font-weight: 500 !important;
 }
 
-.side-menu .arco-menu-item:not(.arco-menu-selected):hover {
+.arco-menu-item:not(.arco-menu-selected):hover {
   background-color: rgba(36, 104, 242, 0.1) !important;
   color: #2468f2 !important;
 }
 
-.side-menu .menu-icon {
+.menu-icon {
   margin-right: 8px;
 }
 
-.side-menu .arco-menu-selected .menu-icon {
-  color: white !important;
+.arco-menu-selected .menu-icon {
+  color: #fff !important;
 }
